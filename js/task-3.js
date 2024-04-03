@@ -1,15 +1,33 @@
 'use strict';
 
-function getElementWidth(content, padding, border) {
-    let contentValue = parseFloat(content);
-    let paddingValue = parseFloat(padding);
-    let borderValue = parseFloat(border);
+class StringBuilder{
+    constructor(initialValue = " ") {
+        this._value = initialValue;
+    }
 
-    let elementWidth = contentValue + (paddingValue * 2) + (borderValue * 2);
+    getValue() {
+        return this._value;
+    }
 
-    return elementWidth;
+    padEnd(str) {
+        this._value = this._value + str;
+    }
+
+    padStart(str) {
+        this._value = str + this._value;
+    }
+
+    padBoth(str) {
+        this._value = str + this._value + str;
+    }
 }
 
-console.log(getElementWidth("50px", "8px", "4px"));
-console.log(getElementWidth("60px", "12px", "8.5px"));
-console.log(getElementWidth("200px", "0px", "0px"));
+
+const builder = new StringBuilder(".");
+console.log(builder.getValue()); // "."
+builder.padStart("^");
+console.log(builder.getValue()); // "^."
+builder.padEnd("^");
+console.log(builder.getValue()); // "^.^"
+builder.padBoth("=");
+console.log(builder.getValue()); // "=^.^="
